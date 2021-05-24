@@ -15,7 +15,6 @@ function currentWeather (e) {
     e.preventDefault();
 
     const searchedCityVal = document.querySelector('#city').value;
-    // const button = document.querySelector('#button');
 
     if (!searchedCityVal) {
         console.error('please input city')
@@ -44,7 +43,7 @@ function currentWeather (e) {
     humidityEl.innerText = 'Humidity:';
 
     resultBody.append(tempEl, windEl, humidityEl);
-    
+
     resultCard.append(resultBody);
 
 
