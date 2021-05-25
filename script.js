@@ -77,10 +77,12 @@ function createForecast (lat, lon) {
 
         let returnedDataCard = document.createElement('div');
         returnedDataCard.classList.add('card', 'bg-dark', 'text-white', 'mb-3', 'p-3');
+
+        let date = new Date(oneCallData.current.dt * 1000);
     
         let titleEl = document.createElement('div');
         titleEl.classList.add('card-header', 'bg-dark', 'text-white');
-        titleEl.textContent = 'Current Forecast for ' + document.querySelector('#city').value;
+        titleEl.textContent = 'Current Forecast for ' + document.querySelector('#city').value + date.toLocaleDateString('en-US');
         returnedDataCard.append(titleEl)
 
         let weatherEl = document.createElement('p');
@@ -112,7 +114,13 @@ function createForecast (lat, lon) {
         }
         
         let tempEl = document.createElement('p');
-        tempEl.innerText = 'Avg Temp: ' + oneCallData.current.temp;
+        tempEl.innerText = 'Current Temp: ' + oneCallData.current.temp;
+
+        let highTempEl = document.createElement('p');
+        highTempEl.innerText = 'High of: ' + oneCallData.daily[0].temp.max
+
+        let lowTempEl = document.createElement('p');
+        lowTempEl.innerText = 'Low of: ' + oneCallData.daily[0].temp.min
     
         let feelsLikeEl = document.createElement('p');
         feelsLikeEl.innerText = 'Feels Like:' + ' ' + oneCallData.current.feels_like;
@@ -137,7 +145,7 @@ function createForecast (lat, lon) {
         let resultBody = document.createElement('div');
         resultBody.classList.add('card-body');
     
-        resultBody.append(weatherEl, tempEl, feelsLikeEl, humidityEl, windSpeedEl, uvIndexEl);
+        resultBody.append(weatherEl, tempEl, highTempEl, lowTempEl, feelsLikeEl, humidityEl, windSpeedEl, uvIndexEl);
     
         returnedDataCard.append(resultBody);
     
@@ -145,10 +153,14 @@ function createForecast (lat, lon) {
         returnedDataDiv.append(returnedDataCard)
 
 
-        for (let index = 0; index < 5; index++) {
+        for (let index = 1; index < 5; index++) {
             
             let returnedDataCard = document.createElement('div');
             returnedDataCard.classList.add('card', 'bg-dark', 'text-white', 'mb-3', 'p-3');
+
+            let date = new Date(oneCallData.daily[index].dt * 1000);
+            let dateEl = document.createElement('h3');
+            dateEl.innerText = date.toLocaleDateString('en-US')
 
             let weatherEl = document.createElement('p');
             weatherEl.innerText = 'General Weather Conditions: ' + oneCallData.daily[index].weather[0].description;  
@@ -209,7 +221,7 @@ function createForecast (lat, lon) {
             let resultBody = document.createElement('div');
             resultBody.classList.add('card-body');
         
-            resultBody.append(weatherEl, highTempEl, lowTempEl, feelsLikeEl, humidityEl, windSpeedEl, uvIndexEl);
+            resultBody.append(dateEl, weatherEl, highTempEl, lowTempEl, feelsLikeEl, humidityEl, windSpeedEl, uvIndexEl);
         
             returnedDataCard.append(resultBody);
         
