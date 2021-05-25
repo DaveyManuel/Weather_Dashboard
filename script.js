@@ -8,17 +8,28 @@ const apiKey = '3664890572785f16ad10031c24428df2'
 function handleFormSubmit (event) {
     event.preventDefault();
     const searchedCityVal = document.querySelector('#city').value;
+
+
     if (!searchedCityVal) {
         console.error('please input city')
         return;
     }
+
+    // if(returnedDataDiv && fiveDayForecastDiv){
+    //     returnedDataDiv.removeChild(event);
+    //     fiveDayForecastDiv.removeChild(event);
+        
+    //     searchWeather(searchedCityVal);
+
+    // }
+
     console.log(searchedCityVal)
 
-currentWeather(searchedCityVal);
 
+    searchWeather(searchedCityVal);
 };
 
-function currentWeather (searchedCityVal) {
+function searchWeather (searchedCityVal) {
 
 
     const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + searchedCityVal + '&appid=' + apiKey + '&units=imperial'
@@ -73,7 +84,32 @@ function createForecast (lat, lon) {
         returnedDataCard.append(titleEl)
 
         let weatherEl = document.createElement('p');
-        weatherEl.innerText = 'General Weather Conditions: ' + oneCallData.current.weather[0].description
+        weatherEl.innerHTML = 'General Weather Conditions: ' + oneCallData.current.weather[0].description
+
+        switch (oneCallData.current.weather[0].main) {
+            case 'Clear':
+                weatherEl.innerHTML += ' <i class="fas fa-sun"></i>'
+                break;
+            case 'Clouds':
+                weatherEl.innerHTML += ' <i class="fas fa-cloud-sun"></i>'
+                break;
+            case 'Thunderstorm':
+                weatherEl.innerHTML += ' <i class="fas fa-bolt"></i>'
+                break;
+            case 'Snow':
+                weatherEl.innerHTML += ' <i class="fas fa-snowman"></i>'
+                break;
+            case 'Rain':
+                weatherEl.innerHTML += ' <i class="fas fa-cloud-showers-heavy"></i>'
+                break;
+            case 'Drizzle':
+                weatherEl.innerHTML += ' <i class="fas fa-cloud-rain"></i>'
+                break;
+        
+            default:
+                weatherEl.innerHTML = 'General Weather Conditions: ' + oneCallData.current.weather[0].description
+                break;
+        }
         
         let tempEl = document.createElement('p');
         tempEl.innerText = 'Avg Temp: ' + oneCallData.current.temp;
@@ -89,6 +125,14 @@ function createForecast (lat, lon) {
 
         let uvIndexEl = document.createElement('p');
         uvIndexEl.innerText = 'UV Index: ' + oneCallData.current.uvi
+
+        if (oneCallData.current.uvi <= 2) {
+            uvIndexEl.classList.add('text-success');
+        } else if (oneCallData.current.uvi <= 6 && oneCallData.current.uvi > 2) { 
+            uvIndexEl.classList.add('text-warning');
+        } else if (oneCallData.current.uvi >= 7 ) {
+            uvIndexEl.classList.add('text-danger');
+        }
 
         let resultBody = document.createElement('div');
         resultBody.classList.add('card-body');
@@ -107,7 +151,33 @@ function createForecast (lat, lon) {
             returnedDataCard.classList.add('card', 'bg-dark', 'text-white', 'mb-3', 'p-3');
 
             let weatherEl = document.createElement('p');
-            weatherEl.innerText = 'General Weather Conditions: ' + oneCallData.daily[index].weather[0].description;    
+            weatherEl.innerText = 'General Weather Conditions: ' + oneCallData.daily[index].weather[0].description;  
+            
+            switch (oneCallData.daily[index].weather[0].main) {
+                case 'Clear':
+                    weatherEl.innerHTML += ' <i class="fas fa-sun"></i>'
+                    break;
+                case 'Clouds':
+                    weatherEl.innerHTML += ' <i class="fas fa-cloud-sun"></i>'
+                    break;
+                case 'Thunderstorm':
+                    weatherEl.innerHTML += ' <i class="fas fa-bolt"></i>'
+                    break;
+                case 'Snow':
+                    weatherEl.innerHTML += ' <i class="fas fa-snowman"></i>'
+                    break;
+                case 'Rain':
+                    weatherEl.innerHTML += ' <i class="fas fa-cloud-showers-heavy"></i>'
+                    break;
+                case 'Drizzle':
+                    weatherEl.innerHTML += ' <i class="fas fa-cloud-rain"></i>'
+                    break;
+            
+                default:
+                    weatherEl.innerHTML = 'General Weather Conditions: ' + oneCallData.current.weather[0].description
+                    break;
+            }
+    
     
             let highTempEl = document.createElement('p');
             highTempEl.innerText = 'High of: ' + oneCallData.daily[index].temp.max;
@@ -126,6 +196,15 @@ function createForecast (lat, lon) {
 
             let uvIndexEl = document.createElement('p');
             uvIndexEl.innerText = 'UV Index: ' + oneCallData.daily[index].uvi
+
+            if (oneCallData.daily[index].uvi <= 2) {
+                uvIndexEl.classList.add('text-success');
+            } else if (oneCallData.daily[index].uvi <= 6 && oneCallData.daily[index].uvi > 2) { 
+                uvIndexEl.classList.add('text-warning');
+            } else if (oneCallData.daily[index].uvi >= 7 ) {
+                uvIndexEl.classList.add('text-danger');
+            }
+    
     
             let resultBody = document.createElement('div');
             resultBody.classList.add('card-body');
