@@ -7,6 +7,7 @@ const apiKey = '3664890572785f16ad10031c24428df2'
 function handleFormSubmit (event) {
     event.preventDefault();
     const searchedCityVal = document.querySelector('#city').value;
+    localStorage.setItem('searchedCity', searchedCityVal);
 
 
     if (!searchedCityVal) {
