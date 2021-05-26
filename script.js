@@ -1,6 +1,5 @@
 const returnedDataDiv = document.querySelector('#returnedDataDiv')
 const fiveDayForecastDiv = document.querySelector('#fiveDayForecast')
-// const searchedCity = document.querySelector('#searchedCity')
 const searchForm = document.querySelector('#searchCityForm');
 const apiKey = '3664890572785f16ad10031c24428df2'
 
@@ -15,18 +14,16 @@ function handleFormSubmit (event) {
         return;
     }
 
-    // if(returnedDataDiv && fiveDayForecastDiv){
-    //     returnedDataDiv.removeChild(event);
-    //     fiveDayForecastDiv.removeChild(event);
+    if(returnedDataDiv && fiveDayForecastDiv){
+        returnedDataDiv.innerHTML = '';
+        fiveDayForecastDiv.innerHTML = '';
         
-    //     searchWeather(searchedCityVal);
+        searchWeather(searchedCityVal);
 
-    // }
+    }
 
     console.log(searchedCityVal)
 
-
-    searchWeather(searchedCityVal);
 };
 
 function searchWeather (searchedCityVal) {
@@ -72,17 +69,15 @@ function createForecast (lat, lon) {
       })
     .then(function(oneCallData){
         console.log(oneCallData)
-        //for loop for creating cards 
-        //i less than 5 
 
         let returnedDataCard = document.createElement('div');
-        returnedDataCard.classList.add('card', 'bg-dark', 'text-white', 'mb-3', 'p-3');
+        returnedDataCard.classList.add('card', 'bg-dark','fw-bolder', 'mb-3', 'p-3');
 
         let date = new Date(oneCallData.current.dt * 1000);
     
         let titleEl = document.createElement('div');
-        titleEl.classList.add('card-header', 'bg-dark', 'text-white');
-        titleEl.textContent = 'Current Forecast for ' + document.querySelector('#city').value + date.toLocaleDateString('en-US');
+        titleEl.classList.add('card-header', 'bg-transparent');
+        titleEl.innerHTML = 'Current Forecast for ' + document.querySelector('#city').value + '<br/>' + date.toLocaleDateString('en-US');
         returnedDataCard.append(titleEl)
 
         let weatherEl = document.createElement('p');
@@ -91,21 +86,28 @@ function createForecast (lat, lon) {
         switch (oneCallData.current.weather[0].main) {
             case 'Clear':
                 weatherEl.innerHTML += ' <i class="fas fa-sun"></i>'
+                returnedDataCard.classList.add('sunny', 'text-white')
                 break;
             case 'Clouds':
                 weatherEl.innerHTML += ' <i class="fas fa-cloud-sun"></i>'
+                returnedDataCard.classList.add('cloudy', 'text-dark')
+                titleEl.classList.add('text-dark');
                 break;
             case 'Thunderstorm':
                 weatherEl.innerHTML += ' <i class="fas fa-bolt"></i>'
+                returnedDataCard.classList.add('thunder', 'text-white')
                 break;
             case 'Snow':
                 weatherEl.innerHTML += ' <i class="fas fa-snowman"></i>'
+                returnedDataCard.classList.add('snowy', 'text-white')
                 break;
             case 'Rain':
                 weatherEl.innerHTML += ' <i class="fas fa-cloud-showers-heavy"></i>'
+                returnedDataCard.classList.add('rainy', 'text-white')
                 break;
             case 'Drizzle':
                 weatherEl.innerHTML += ' <i class="fas fa-cloud-rain"></i>'
+                returnedDataCard.classList.add('drizzle', 'text-white')
                 break;
         
             default:
@@ -153,10 +155,10 @@ function createForecast (lat, lon) {
         returnedDataDiv.append(returnedDataCard)
 
 
-        for (let index = 1; index < 5; index++) {
+        for (let index = 1; index < 6; index++) {
             
             let returnedDataCard = document.createElement('div');
-            returnedDataCard.classList.add('card', 'bg-dark', 'text-white', 'mb-3', 'p-3');
+            returnedDataCard.classList.add('card', 'bg-dark', 'fw-bolder', 'm-3', 'p-3', 'col-2');
 
             let date = new Date(oneCallData.daily[index].dt * 1000);
             let dateEl = document.createElement('h3');
@@ -168,21 +170,27 @@ function createForecast (lat, lon) {
             switch (oneCallData.daily[index].weather[0].main) {
                 case 'Clear':
                     weatherEl.innerHTML += ' <i class="fas fa-sun"></i>'
+                    returnedDataCard.classList.add('sunny', 'text-white')
                     break;
                 case 'Clouds':
                     weatherEl.innerHTML += ' <i class="fas fa-cloud-sun"></i>'
+                    returnedDataCard.classList.add('cloudy', 'text-dark')
                     break;
                 case 'Thunderstorm':
                     weatherEl.innerHTML += ' <i class="fas fa-bolt"></i>'
+                    returnedDataCard.classList.add('thunder', 'text-white')
                     break;
                 case 'Snow':
                     weatherEl.innerHTML += ' <i class="fas fa-snowman"></i>'
+                    returnedDataCard.classList.add('snowy', 'text-white')
                     break;
                 case 'Rain':
                     weatherEl.innerHTML += ' <i class="fas fa-cloud-showers-heavy"></i>'
+                    returnedDataCard.classList.add('rainy', 'text-white')
                     break;
                 case 'Drizzle':
                     weatherEl.innerHTML += ' <i class="fas fa-cloud-rain"></i>'
+                    returnedDataCard.classList.add('drizzle', 'text-white')
                     break;
             
                 default:
