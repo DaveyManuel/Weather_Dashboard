@@ -1,13 +1,11 @@
 body {
-    background: radial-gradient(circle, rgba(27,195,195,1) 30%, rgba(199,191,173,1) 100%);
+    background: radial-gradient(circle, rgb(20, 104, 104) 50%, rgb(136, 129, 114) 100%);
+    font-family: 'Lora', serif;
 }
 
 .sunny {
-    background: url('https://www.coloradoboulevard.net/wp-content/uploads/2015/05/weather-sunny-day-gif.gif');
-    /* background: url('https://media0.giphy.com/media/xmW8F2ksN0KA0/200w.gif'); */
-    /* background: url('https://64.media.tumblr.com/tumblr_m5h2bdvY111r4zr2vo1_500.gifv'); */
+    background: url('https://i.gifer.com/WGmr.gif');
     background-size: cover;
-
 }
 
 .rainy {
@@ -26,13 +24,11 @@ body {
 }
 
 .cloudy {
-    background: url('https://media3.giphy.com/media/KwZoSJlvep6Vy/giphy.gif');
+    background: url('https://media3.giphy.com/media/26vIfmfSwsxxz9dEk/giphy.gif');
     background-size: cover;
 }
 
 .snowy {
-    /* background: url('https://i.pinimg.com/originals/79/75/f4/7975f44ff41b6ced689e00b910d38127.gif'); */
-    /* background: url('https://i.gifer.com/G6Gr.gif'); */
     background: url('https://y6auj24xr4y3qq95tz7io6uu-wpengine.netdna-ssl.com/wp-content/uploads/2015/12/tumblr_nhj42i0MNh1smjk7ro1_500.gif');
     background-size: cover;
 }

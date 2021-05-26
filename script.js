@@ -71,12 +71,12 @@ function createForecast (lat, lon) {
         console.log(oneCallData)
 
         let returnedDataCard = document.createElement('div');
-        returnedDataCard.classList.add('card', 'bg-dark','fw-bolder', 'mb-3', 'p-3');
+        returnedDataCard.classList.add('card', 'bg-dark','fw-bolder', 'fs-1');
 
         let date = new Date(oneCallData.current.dt * 1000);
     
         let titleEl = document.createElement('div');
-        titleEl.classList.add('card-header', 'bg-transparent');
+        titleEl.classList.add('card-header', 'bg-transparent',);
         titleEl.innerHTML = 'Current Forecast for ' + document.querySelector('#city').value + '<br/>' + date.toLocaleDateString('en-US');
         returnedDataCard.append(titleEl)
 
@@ -145,9 +145,18 @@ function createForecast (lat, lon) {
         }
 
         let resultBody = document.createElement('div');
-        resultBody.classList.add('card-body');
+        resultBody.classList.add('card-body', 'row');
+
+        let leftColBody = document.createElement('div');
+        leftColBody.classList.add('col');
+
+        let rightColBody = document.createElement('div');
+        rightColBody.classList.add('col');
+
+        leftColBody.append(weatherEl, tempEl, highTempEl, lowTempEl);
+        rightColBody.append(feelsLikeEl, humidityEl, windSpeedEl, uvIndexEl);
     
-        resultBody.append(weatherEl, tempEl, highTempEl, lowTempEl, feelsLikeEl, humidityEl, windSpeedEl, uvIndexEl);
+        resultBody.append(leftColBody,rightColBody);
     
         returnedDataCard.append(resultBody);
     
@@ -158,7 +167,7 @@ function createForecast (lat, lon) {
         for (let index = 1; index < 6; index++) {
             
             let returnedDataCard = document.createElement('div');
-            returnedDataCard.classList.add('card', 'bg-dark', 'fw-bolder', 'm-3', 'p-3', 'col-2');
+            returnedDataCard.classList.add('card', 'bg-dark', 'fw-bolder', 'm-3', 'p-3', 'col-2','fs-6');
 
             let date = new Date(oneCallData.daily[index].dt * 1000);
             let dateEl = document.createElement('h3');
