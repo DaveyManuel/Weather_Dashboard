@@ -72,7 +72,7 @@ function createForecast (lat, lon) {
         console.log(oneCallData)
 
         let returnedDataCard = document.createElement('div');
-        returnedDataCard.classList.add('card', 'bg-dark','fw-bolder', 'fs-1');
+        returnedDataCard.classList.add('card', 'bg-dark','fw-bolder', 'fs-1', 'border', 'border-4', 'border-dark');
 
         let date = new Date(oneCallData.current.dt * 1000);
     
@@ -168,7 +168,7 @@ function createForecast (lat, lon) {
         for (let index = 1; index < 6; index++) {
             
             let returnedDataCard = document.createElement('div');
-            returnedDataCard.classList.add('card', 'bg-dark', 'fw-bolder', 'm-3', 'p-3', 'col-2','fs-6');
+            returnedDataCard.classList.add('card', 'bg-dark', 'fw-bolder', 'm-3', 'p-3', 'col-2','fs-6', 'border', 'border-4', 'border-dark');
 
             let date = new Date(oneCallData.daily[index].dt * 1000);
             let dateEl = document.createElement('h3');
